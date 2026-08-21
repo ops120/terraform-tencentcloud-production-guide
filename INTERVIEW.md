@@ -45,8 +45,7 @@
 
 ### Q01: 什么是 Terraform？它与 Ansible 有什么区别？
 
-- **难度**: 初级
-- **频率**: ⭐⭐⭐⭐⭐
+- **难度**: 初级 ⭐⭐⭐⭐⭐
 - **出处**: Reddit, Glassdoor, YouTube, DataCamp
 - **答案要点**:
   1. Terraform 是 HashiCorp 的**声明式（declarative）IaC 工具**，专注基础设施**编排（orchestration）**
