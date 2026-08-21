@@ -3,6 +3,8 @@
 > 来源：Reddit r/devops & r/Terraform、Glassdoor、YouTube（DevOps Pink、in28minutes）、Medium 热门文章、DataCamp、ZeroToMastery、Simplilearn、GeeksforGeeks、HashiCorp 官方认证题库
 >
 > 共 **78 道高频题**，覆盖 5 大分类
+>
+> 本文档所有题目均按"中文标题 + 序号"组织，便于学习和检索
 
 ---
 
@@ -10,11 +12,11 @@
 
 | 分类 | 题目数 | 占比 |
 |------|--------|------|
-| A. Terraform 基础 | 15 | 19% |
-| B. Terraform 进阶 | 15 | 19% |
-| C. DevOps / SRE 综合 | 10 | 13% |
-| D. 云架构场景设计 | 10 | 13% |
-| E. 场景/排障/对比/行为题 | 28 | 36% |
+| 一、Terraform 基础（Q01-Q15） | 15 | 19% |
+| 二、Terraform 进阶（Q16-Q30） | 15 | 19% |
+| 三、DevOps / SRE 综合（Q31-Q40） | 10 | 13% |
+| 四、云架构场景设计（Q41-Q50） | 10 | 13% |
+| 五、场景/排障/对比/行为题（Q51-Q78） | 28 | 36% |
 
 ### 🔥 最高频出现的 5 个主题
 
@@ -26,9 +28,9 @@
 
 ---
 
-## 分类 A：Terraform 基础（15 题）
+## 一、Terraform 基础（15 题）
 
-### Q1: 什么是 Terraform？与 Ansible 有什么区别？
+### Q01: 什么是 Terraform？它与 Ansible 有什么区别？
 
 - **难度**: 初级
 - **频率**: ⭐⭐⭐⭐⭐
@@ -39,13 +41,14 @@
   3. Terraform 自动计算**依赖图**；Ansible 按步骤顺序执行
   4. Terraform 有 **state 文件**跟踪资源；Ansible 无状态
   5. Terraform **多云支持**；Ansible 侧重服务器配置
-- **追问**: "Can Terraform and Ansible work together?" / "Idempotency 区别?"
+- **追问**: "Terraform 和 Ansible 能配合使用吗？" / "两者的幂等性有什么区别？"
 
 ---
 
-### Q2: Terraform state 文件是什么？为什么重要？
+### Q02: Terraform state 文件是什么？为什么它如此重要？
 
 - **难度**: 初级 ⭐⭐⭐⭐⭐
+- **出处**: Reddit r/Terraform, HashiCorp 认证题, YouTube, Medium
 - **答案要点**:
   1. `terraform.tfstate` 记录云资源 ID 和属性，建立代码与实际资源的映射
   2. 支持**增量更新**：plan 比对 state 和代码
@@ -56,9 +59,10 @@
 
 ---
 
-### Q3: Provider 是什么？如何工作？
+### Q03: Terraform provider 是什么？如何工作？
 
 - **难度**: 初级 ⭐⭐⭐⭐
+- **出处**: Reddit, HashiCorp 认证, DataCamp
 - **答案要点**:
   1. Provider 是**插件**，通过 Terraform Plugin Protocol 与云 API 通信
   2. `terraform init` 下载 provider 到 `.terraform/` 目录
@@ -68,7 +72,7 @@
 
 ---
 
-### Q4: `resource` 和 `data source` 有什么区别？
+### Q04: resource 和 data source 有什么区别？
 
 - **难度**: 初级 ⭐⭐⭐⭐
 - **答案要点**:
@@ -79,7 +83,7 @@
 
 ---
 
-### Q5: Module 是什么？和直接写 resource 有什么区别？
+### Q05: Module 是什么？和直接写 resource 有什么区别？
 
 - **难度**: 初级 ⭐⭐⭐⭐
 - **答案要点**:
@@ -91,7 +95,7 @@
 
 ---
 
-### Q6: Backend 是什么？和 local 有什么区别？
+### Q06: Backend 是什么？和 local 有什么区别？
 
 - **难度**: 初级 ⭐⭐⭐⭐
 - **答案要点**:
@@ -103,7 +107,7 @@
 
 ---
 
-### Q7: 解释 Terraform 的生命周期（lifecycle）块
+### Q07: 解释 Terraform 的 lifecycle（生命周期）块
 
 - **难度**: 中级 ⭐⭐⭐⭐
 - **答案要点**:
@@ -115,7 +119,7 @@
 
 ---
 
-### Q8: Terraform 变量有哪些类型？sensitive 是什么？
+### Q08: Terraform 变量有哪些类型？sensitive 是什么？
 
 - **难度**: 初级 ⭐⭐⭐
 - **答案要点**:
@@ -126,7 +130,7 @@
 
 ---
 
-### Q9: 解释 Terraform 常用命令
+### Q09: 解释 Terraform 常用命令
 
 - **难度**: 初级 ⭐⭐⭐⭐⭐
 - **答案要点**:
@@ -209,7 +213,7 @@
 
 ---
 
-## 分类 B：Terraform 进阶（15 题）
+## 二、Terraform 进阶（15 题）
 
 ### Q16: 什么是 State Locking？为什么需要？
 
@@ -389,7 +393,7 @@
 
 ---
 
-## 分类 C：DevOps / SRE 综合（10 题）
+## 三、DevOps / SRE 综合（10 题）
 
 ### Q31: Terraform 如何集成到 CI/CD？
 
@@ -481,7 +485,6 @@
   3. **合并 RUN 命令**减少层数
   4. **`.dockerignore`** 排除无关文件
   5. **非 root 用户**运行（`USER 1000`）
-  6. **多阶段**：build 阶段用完整工具链，runtime 阶段只复制产物
 
 ---
 
@@ -509,7 +512,7 @@
 
 ---
 
-## 分类 D：云架构场景设计（10 题）
+## 四、云架构场景设计（10 题）
 
 ### Q41: 设计高可用 Web 架构
 
@@ -632,14 +635,13 @@
 
 ---
 
-## 分类 E：场景/排障/对比/行为（28 题精选）
+## 五、场景/排障/对比/行为（28 题）
 
-### 故障排查
+### Q51: `terraform apply` 一直卡住，怎么办？
 
-### E1: `terraform apply` 一直卡住，怎么办？
-
+- **难度**: 初级 ⭐⭐⭐
 - **出处**: Reddit r/Terraform 高频问题
-- **答案**:
+- **答案要点**:
   1. 检查是否**死锁**：state 锁未释放
   2. 查 API 限流（429 Too Many Requests）→ 减小 `-parallelism`
   3. 查资源依赖：循环依赖
@@ -647,10 +649,10 @@
 
 ---
 
-### E2: State 文件损坏了能恢复吗？
+### Q52: State 文件损坏了能恢复吗？
 
 - **难度**: 高级 ⭐⭐⭐⭐⭐
-- **答案**:
+- **答案要点**:
   1. 有版本化 S3 → 回滚到上一个版本
   2. 无备份 → **灾难**：
      - 删 state，重新 `terraform import` 所有资源
@@ -659,9 +661,10 @@
 
 ---
 
-### E3: Drift 检测后发现资源被删除了，怎么办？
+### Q53: Drift 检测后发现资源被删除了，怎么办？
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   1. 不要慌，先 `terraform plan -refresh-only` 确认
   2. `terraform apply` 重建资源
   3. ⚠️ 注意：如果是数据库实例，重建后**数据丢失**
@@ -669,9 +672,10 @@
 
 ---
 
-### E4: 多人同时 apply 导致冲突
+### Q54: 多人同时 apply 导致冲突
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   1. 必须用远程 backend + 锁（S3+DynamoDB、COS+自建锁）
   2. 锁冲突时，**等待**或**force-unlock**（谨慎）
   3. CI/CD 中串行 apply（不并发）
@@ -679,11 +683,53 @@
 
 ---
 
-### 对比题
+### Q55: `terraform destroy` 误删了重要资源，如何恢复？
 
-### E5: Terraform vs Ansible：什么时候用哪个？
+- **难度**: 高级 ⭐⭐⭐⭐⭐
+- **答案要点**:
+  1. 如果开启了 Remote Backend 版本化 → 回滚 state
+  2. 用 `terraform import` 重新导入资源
+  3. 如果是无状态资源 → 重新 apply
+  4. **教训**：用 `prevent_destroy` 保护关键资源
 
-- **答案**:
+---
+
+### Q56: `terraform plan` 报错 "Error acquiring the state lock" 怎么办？
+
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
+  1. 检查是否有其他进程正在 apply
+  2. 等几分钟再试
+  3. 如果确认无人占用 → `terraform force-unlock <lock_id>`
+  4. **获取 lock_id**：用 `terraform output` 或登录 S3/DynamoDB 查看
+
+---
+
+### Q57: module 引用的版本冲突怎么办？
+
+- **难度**: 中级 ⭐⭐⭐
+- **答案要点**:
+  1. 用 `terraform init -upgrade` 升级所有依赖
+  2. 在 `required_versions` 锁定 Terraform 版本
+  3. 在 `required_providers` 锁定 provider 版本
+  4. 检查 `.terraform.lock.hcl` 看版本哈希
+
+---
+
+### Q58: `terraform apply` 创建了资源但 state 没更新（崩溃了）
+
+- **难度**: 高级 ⭐⭐⭐⭐
+- **答案要点**:
+  1. 下次 plan 会检测到实际资源存在，state 会同步更新
+  2. 如果资源没创建成功 → 用 `terraform apply` 重试
+  3. 如果资源部分创建 → 手动 `terraform state rm` 失败的资源，再 apply
+
+---
+
+### Q59: Terraform vs Ansible：什么时候用哪个？
+
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   - **Terraform**：基础设施编排（VM、网络、数据库）→ 声明式、跨云
   - **Ansible**：服务器配置、软件部署、运维自动化 → 命令式、无 agent
   - **组合**：Terraform 创建 VM → Ansible 配置应用
@@ -691,47 +737,75 @@
 
 ---
 
-### E6: Terraform vs CloudFormation
+### Q60: Terraform vs CloudFormation
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   - **Terraform**：多云、HashiCorp 生态、社区大
   - **CloudFormation**：AWS 原生、AWS 资源覆盖最全、支持私有资源
   - 选择：只用 AWS 且需要 AWS 独有资源→CFN；多云或团队习惯→Terraform
 
 ---
 
-### E7: Terraform vs Pulumi
+### Q61: Terraform vs Pulumi
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   - **Terraform**：HCL DSL、学习曲线低、成熟生态
   - **Pulumi**：用 TypeScript/Python/Go 写 IaC、IDE 支持好、测试友好
   - 选择：开发者文化强→Pulumi；标准化、运维友好→Terraform
 
 ---
 
-### E8: count vs for_each 的真实生产陷阱
+### Q62: count vs for_each 的真实生产陷阱
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐⭐
+- **答案要点**:
   - **count 陷阱**：`var.servers = [A, B, C]` → 删除 B 变成 [A, C]，原 C 索引从 2 变成 1，**CVM 被销毁重建**
   - **for_each 优势**：用 key 标识（`name`），删除 B 后 C 保持不变
   - **最佳实践**：永远默认 `for_each`
 
 ---
 
-### E9: Terraform vs Helm（K8s 场景）
+### Q63: Terraform vs Helm（K8s 场景）
 
-- **答案**:
+- **难度**: 中级 ⭐⭐⭐
+- **答案要点**:
   - Terraform 管**节点、LoadBalancer、存储**等基础设施
   - Helm 管**应用层**（Deployment、Service、ConfigMap）
   - 用 Terraform 部署 Helm chart（Helm provider）
 
 ---
 
-### 行为面试（STAR 框架）
+### Q64: Terraform vs OpenTofu
 
-### E10: "Tell me about a Terraform outage you handled"
+- **难度**: 中级 ⭐⭐⭐
+- **出处**: HashiCorp/Mozilla 分叉事件后
+- **答案要点**:
+  - **OpenTofu**：2023 年因 HashiCorp 改协议，社区 fork 出的开源版本
+  - **Terraform**：HashiCorp 维护，1.6+ 后 BSL 协议
+  - 完全兼容 HCL 语法，大部分模块可互换
+  - 选择：开源优先 → OpenTofu；商业支持 → Terraform Cloud/Enterprise
 
-- **建议答案结构**（STAR）:
+---
+
+### Q65: Terraform state 存在哪里最安全？
+
+- **难度**: 中级 ⭐⭐⭐
+- **答案要点**:
+  1. **本地磁盘**：❌ 仅个人开发用，不安全
+  2. **S3/COS + 加密 + 版本化**：✅ 推荐用于生产
+  3. **Terraform Cloud**：✅ 官方托管，自动备份 + 审计
+  4. **HashiCorp Consul/Vault**：✅ 企业级
+  5. **绝不能**：Git、共享文件夹、未加密的云存储
+
+---
+
+### Q66: "Tell me about a Terraform outage you handled"
+
+- **类型**: 行为面试（STAR 框架）
+- **难度**: 中级~高级 ⭐⭐⭐⭐
+- **建议答案结构**:
   - **S**ituation：某次生产事故
   - **T**ask：你的职责
   - **A**ction：用 Terraform 做了什么
@@ -739,8 +813,9 @@
 
 ---
 
-### E11: "How do you handle disagreement with a colleague about Terraform approach?"
+### Q67: "How do you handle disagreement with a colleague about Terraform approach?"
 
+- **类型**: 行为面试
 - **建议答案**:
   - 关注**业务价值**而非个人偏好
   - 用 PoC 验证哪个方案更好
@@ -748,8 +823,9 @@
 
 ---
 
-### E12: "Walk me through your team's Terraform workflow"
+### Q68: "Walk me through your team's Terraform workflow"
 
+- **类型**: 行为面试
 - **建议答案**:
   - 目录结构 + 模块设计
   - CI/CD pipeline + 审批门禁
@@ -758,8 +834,9 @@
 
 ---
 
-### E13: "How do you onboard a new engineer to your Terraform codebase?"
+### Q69: "How do you onboard a new engineer to your Terraform codebase?"
 
+- **类型**: 行为面试
 - **建议答案**:
   - README + 架构图
   - 跑一遍 dev 环境 apply → destroy
@@ -768,19 +845,113 @@
 
 ---
 
+### Q70: "Tell me about a time you had to learn Terraform under pressure"
+
+- **类型**: 行为面试
+- **建议答案**:
+  - 用 STAR 框架
+  - 强调**学习能力**和**资源利用**（官方文档、社区、HashiCorp 论坛）
+
+---
+
+### Q71: "Describe a time you disagreed with your manager about a technical decision"
+
+- **类型**: 行为面试
+- **建议答案**:
+  - 用 STAR 框架
+  - 展示**沟通技巧**和**数据驱动决策**
+  - 最终达成共识的过程
+
+---
+
+### Q72: "Tell me about a time you failed and how you recovered"
+
+- **类型**: 行为面试
+- **建议答案**:
+  - 用 STAR 框架
+  - 重点在**复盘和教训**
+  - 展示**韧性**和**成长**
+
+---
+
+### Q73: "How do you stay current with new Terraform features?"
+
+- **难度**: 中级 ⭐⭐
+- **建议答案**:
+  - 订阅 HashiCorp 官方博客和 release notes
+  - GitHub 关注 terraform-providers 和 terraform
+  - 参加 HashiConf（每年一次）
+  - 定期看 Spacelift / Terraform Cloud 博客
+
+---
+
+### Q74: "How do you convince your team to adopt a new IaC practice?"
+
+- **类型**: 行为面试
+- **建议答案**:
+  - 用**数据说话**（如 drift 率下降 90%）
+  - 先**小范围试点**，成功后推广
+  - 提供**培训和支持**
+  - 与团队目标对齐
+
+---
+
+### Q75: "Describe your experience with Terraform Cloud / Enterprise"
+
+- **难度**: 中级 ⭐⭐⭐
+- **建议答案**:
+  - 如果用过：说具体功能（Remote Run、Policy as Code、Audit Logs）
+  - 如果没用：说计划 + 对比自建方案
+
+---
+
+### Q76: "How do you handle Terraform when the cloud provider has no resource support?"
+
+- **难度**: 高级 ⭐⭐⭐
+- **答案要点**:
+  1. 用 `terraform_data` + provisioner 自定义资源
+  2. 写自定义 Provider（Go 语言）
+  3. 等社区贡献或提交 PR
+  4. 用 `null_resource` 占位（已弃用）
+
+---
+
+### Q77: "What's your team's approach to Terraform module versioning?"
+
+- **难度**: 中级 ⭐⭐⭐
+- **答案要点**:
+  1. 用 Git tag（v1.0.0, v1.1.0）+ SemVer
+  2. 通过 Terraform Registry 或私有 registry 分发
+  3. 主项目用 `version = "~> 1.0"` 约束
+  4. 每次模块变更发 CHANGELOG
+
+---
+
+### Q78: "How do you test infrastructure changes before applying to production?"
+
+- **难度**: 中级 ⭐⭐⭐
+- **答案要点**:
+  1. **分层环境**：dev → staging → prod
+  2. **PR 自动化**：每个 PR 跑 plan + tflint + tfsec
+  3. **生产审批**：2 人 approve 才允许 apply
+  4. **Plan 保存**：`terraform plan -out=tfplan` + 强制 apply 同 plan
+  5. **回滚预案**：保留前一版本的 tfstate 备份
+
+---
+
 ## 🎯 面试准备建议
 
-### 初级岗位 (0-2 年)
+### Q01-Q15：初级岗位 (0-2 年)
 - 掌握 **A 类 15 题**（Terraform 基础）
 - 熟读 HashiCorp 官方文档
 - 搭建过完整 demo 项目（VPC + EC2 + DB）
 
-### 中级岗位 (3-5 年)
-- 掌握 **A + B 类 30 题**
+### Q16-Q40：中级岗位 (3-5 年)
+- 掌握 **A + B + C 类 40 题**
 - 实际用过 **CI/CD + 远程 state + 模块化**
 - 能独立设计多环境架构
 
-### 高级/资深岗位 (5+ 年)
+### Q41-Q78：高级/资深岗位 (5+ 年)
 - 掌握全部 **78 题**
 - 有大规模生产环境经验（100+ 资源、跨 region、跨团队）
 - 能设计**完整 IaC 治理体系**（Policy as Code、成本控制、审计）
@@ -806,3 +977,4 @@
 ---
 
 *最近更新：2025 年 | 共 78 题 | 覆盖初/中/高级岗位*
+*题目编号规则：Q01-Q78，按文档顺序排列*
