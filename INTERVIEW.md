@@ -8,6 +8,20 @@
 
 ---
 
+## ⚠️ 答案免责声明
+
+**所有答案（主答案 + 追问参考答案）均为 AI 根据训练知识整理的参考思路，未经过实际验证。**
+
+面试准备建议：
+1. **主答案**仅供参考答题框架和关键词
+2. **追问答案**是基于常见经验的参考，请务必自己测试/验证
+3. **面试前**：用自己的话复述，能讲出实战案例 > 背答案
+4. **核对方式**：官方文档 > 官方认证题库 > HashiCorp 博客
+5. 标 ✅ 的答案 = 高置信度（如官方文档明示），其他 = 常见经验
+
+
+---
+
 ## 📊 题目分布与高频考点
 
 | 分类 | 题目数 | 占比 |
@@ -43,7 +57,7 @@
   5. Terraform **多云支持**；Ansible 侧重服务器配置
 - **追问**: "Terraform 和 Ansible 能配合使用吗？" / "两者的幂等性有什么区别？"
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Terraform 和 Ansible 能配合使用吗？**: 可以。典型模式：用 Terraform 创建云资源（VM、网络、数据库），用 Ansible 在创建好的 VM 上安装软件和配置。也有 `ansible` provider 可以从 Terraform 调用 Ansible。
   - **两者的幂等性有什么区别？**: 两者都是幂等的——重复执行同样的命令，最终状态相同。Terraform 的幂等来自 state 对比，Ansible 的幂等来自模块自身的检查（如 `apt` 模块会先看包是否已装）。
 
@@ -61,7 +75,7 @@
   5. State 丢失 = Terraform 不认识资源，会尝试重建导致冲突
 - **追问**: "State 丢失怎么办？" / "如何团队共享 state？"
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **State 丢失怎么办？**: 灾难。需要：用 `terraform import` 重新导入所有资源（最稳妥），或从版本化的 remote backend 恢复 state。教训：必须开启 backend 版本化和备份。
   - **如何团队共享 state？**: 用 Remote Backend（S3+COS+锁），团队所有成员 `terraform plan/apply` 都连到同一个远程 state。强烈不要把 state 文件放在共享文件夹或 Git 里。
 
@@ -78,7 +92,7 @@
   4. 一个配置文件可使用多个 provider（如 `provider "aws" { alias = "east" }`）
   5. 编写自定义 provider 需要 Go 语言
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **如何升级 Provider 版本？**: 修改 `required_providers` 块的 version 约束（如 `version = "~> 1.81"`），运行 `terraform init -upgrade`。但建议先在 dev 环境验证，避免大版本升级的 breaking change。
   - **Provider 是开源的吗？**: 大部分主流云厂商的 Provider 都是开源的（GitHub 上能找到），但 HashiCorp 自己维护的 Provider（如 `random`, `archive`）和云厂商的 Provider 分工不同。
 
@@ -93,7 +107,7 @@
   3. Data source 不在 state 中保存属性
   4. 使用场景：DRY 原则、避免硬编码、查询动态值
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Data source 能在 module output 里返回吗？**: 可以，但有限制。某些 data source 可能在 apply 阶段才能拿到值，module 间的传递会出错。推荐在 module 内部完成 data source 查询。
   - **Data source 在 plan 阶段会查询 API 吗？**: 会。每次 `terraform plan` 都会查询 data source（除非加了 `count` 或 `for_each` 条件）。大量 data source 会拖慢 plan 速度。
 
@@ -109,7 +123,7 @@
   4. **何时用**：资源超过 3 个、多团队复用、跨环境共享
   5. **何时不用**：单个文件、一次性部署
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **模块版本升级时如何做向后兼容？**: 遵循 SemVer：patch 版本只修 bug，minor 版本新增功能（向后兼容），major 版本可能 breaking change。永远不要在 minor/patch 版本里改破坏性行为。
   - **如何测试一个模块？**: 用 `examples/` 目录提供多个示例；用 Terratest（Go 测试框架）写集成测试；在 CI 中自动跑 `terraform plan`/`apply`/`destroy` 验证。
 
@@ -125,7 +139,7 @@
   4. `partial-configuration` 通过 `-backend-config` 传入参数
   5. Terraform Cloud 还提供远程执行、Plan 审计、Policy 检查
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **backend 切换时如何迁移 state？**: 先用 `terraform init -migrate-state`，Terraform 会把 state 从旧 backend 复制到新 backend 并删除旧的。注意：需要在 backend 块里同时声明 `backend "old" {}` 作为临时源。
   - **Terraform Cloud 是什么？**: HashiCorp 官方提供的 SaaS 平台，提供 Remote Backend、远程执行（Terraform Cloud 执行 apply）、Policy as Code（Sentinel）、私有模块 Registry、审计日志。免费额度够小团队用。
 
@@ -141,7 +155,7 @@
   4. `replace_triggered_by`：强制替换资源
   5. lifecycle 是 Terraform 中**保护重要资源**的关键
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **ignore_changes 具体怎么用？**: 示例：`lifecycle { ignore_changes = [tags["LastModified"], ami_id] }`。常用于忽略自动变化的属性（如时间戳、AMI ID 自动更新）。
   - **create_before_destroy 对所有资源都适用吗？**: 不是。有些资源不支持（如 IAM 角色名冲突），或者需要先删后建（如替换证书）。需要在实践中验证。
 
@@ -156,7 +170,7 @@
   3. **真正安全**的做法：环境变量 + SSM/KMS + Remote Backend 加密
   4. variable 还可以有 `default`, `validation`, `nullable`
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **sensitive 变量和标记为 sensitive 的 output 有什么区别？**: 效果类似：plan/apply 输出会隐藏。但两者都不会加密 state 文件本身，需要在 backend 层加密（S3 SSE、KMS）。
   - **object 和 tuple 区别？**: object 有字段名（`{name = string, age = number}`），tuple 按位置（`[string, number]`）。前者更像 JSON 对象，后者更像元组。
 
@@ -172,7 +186,7 @@
   4. `destroy`：销毁资源
   5. `fmt`：格式化代码，`validate`：语法检查，`state list/show/rm/mv`：操作 state
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **terraform validate 和 terraform fmt 区别？**: `fmt` 重新格式化代码风格（缩进、空行），`validate` 检查语法和类型错误。两者都不连云。
   - **terraform refresh 命令是什么？**: 把云上资源的最新状态同步到本地 state。1.6+ 后 `plan -refresh-only` 取代了它的常见用途，避免误操作覆盖 state。
 
@@ -187,7 +201,7 @@
   3. Terraform 自动构建**依赖图**，按顺序执行
   4. `create_before_destroy` 会改变依赖方向
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **depends_on 会拖慢速度吗？**: 不会拖慢速度本身，但会改变执行顺序，可能让本来可以并行的资源变成串行。
   - **怎么查看资源依赖图？**: 用 `terraform graph | dot -Tpng > graph.png` 生成 PNG 图片，或装 Graphviz 后 `terraform graph | display`。
 
@@ -202,7 +216,7 @@
   3. 私有的可以用 GitHub/GitLab + `git::https://...`
   4. 内部公司可搭建**私有 Registry**（如 Terraform Cloud Private Registry）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Registry 模块和 Git 私有模块哪个好？**: Registry 模块有版本号、签名、自动文档，更安全；Git 模块灵活但需要自己管理版本和发布流程。生产推荐 Registry。
   - **内部如何搭建私有 Registry？**: 可以用 Terraform Cloud Private Registry、GitLab 内置 Module Registry、或自建工具（如 terraform-registry-server）。
 
@@ -218,7 +232,7 @@
   4. JSON 是 Terraform 的"备份格式"（`.tf.json`），机器生成用
   5. HCL 5 引入新特性（如 `import` block、`optional()` 等）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **HCL 的可选类型是什么？**: HCL 2.0+ 支持 `optional(type)`，表示变量可以为 null。还有 `nullable = false` 强制非空。
   - **HCL 支持哪些高级特性？**: 支持 `for` 表达式、`splat`、函数式编程（如 `merge`、`lookup`）、`try` 错误处理、动态块。
 
@@ -234,7 +248,7 @@
   4. 优先用 `user_data`（云初始化脚本）或自定义镜像
   5. 失败处理：`on_failure = continue`（不推荐）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **provisioner 失败后 Terraform 会回滚吗？**: 不会。Terraform 不管理 provisioner 创建的资源。如果 `remote-exec` 失败，VM 已创建但脚本没跑完，state 会卡住。建议用 `user_data` 或自定义镜像。
   - **null_resource 是什么？**: 一个不创建任何资源的虚拟资源，专门用于触发 provisioner。1.4+ 推荐用 `terraform_data` 替代。
 
@@ -250,7 +264,7 @@
   4. 用 `sensitive = true` 标记变量（仅隐藏输出，不加密 state）
   5. 远程 Backend 必须加密（S3 启用 server-side encryption）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **如果不小心把敏感信息提交到 Git 怎么办？**: 立即轮换密钥！删除 Git 历史（`git filter-repo`），清理 GitHub 缓存（联系 GitHub Support），检查云厂商账单是否有异常。
   - **Vault 是什么？怎么集成？**: HashiCorp Vault 是 secrets 管理工具。Terraform 有 Vault provider，可以从 Vault 读取 secrets 作为变量值。
 
@@ -267,7 +281,7 @@
   5. `+/- create before destroy`：先建后删
   6. `# module.xxx`：模块内的资源
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **plan 为什么不直接 apply？**: plan 只读，apply 才会实际改云。这样可以先看变更内容，避免误删。生产环境必备。
   - **怎么让 plan 自动 approve？**: CI/CD 中可以 `terraform apply -auto-approve`，但生产环境**绝对禁止**，必须人工审批。
 
@@ -285,7 +299,7 @@
   4. 锁 ID 通过 `terraform output` 或日志查看
   5. **不要在 CI 中禁用锁**（race condition 灾难）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **force-unlock 的风险？**: 如果另一个进程真的在 apply 中，强制解锁可能导致两人同时改 state，结果是 state 文件冲突（JSON 损坏）。必须先确认无人占用。
   - **锁的 TTL 是多长？**: S3+DynamoDB 默认没有 TTL（永久锁），靠手动 force-unlock。Terraform Cloud 默认有 30 分钟 TTL。
 
@@ -302,7 +316,7 @@
      - 接受代码：`terraform refresh` 更新 state
   4. 预防：开启 CloudTrail 审计、IAM 权限最小化、Terraform 管理所有变更
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **如何在 CI 中自动检测 drift？**: 每天定时跑 `terraform plan -detailed-exitcode`（有 drift 返回 2），发到 Slack 告警。Atlantis 和 Terraform Cloud 都有这个功能。
   - **Drift 是坏的吗？**: 不一定是坏的。如果有人手动扩容了 CVM 但忘了更新 Terraform，这是好的 drift。但意外的删除就是坏 drift，需要立即修复。
 
@@ -317,7 +331,7 @@
   3. 使用场景：迁移控制台已有资源到 Terraform 管理
   4. 需要先在 `.tf` 中**声明资源骨架**才能 import
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **import block 的限制是什么？**: 只能导入到 state，不能导入已经存在的依赖关系；某些复杂资源（如 K8s CRD）可能需要手动写配置。
   - **如何批量 import？**: 用脚本循环遍历资源 ID，生成 `terraform import` 命令。或写 `for_each` + `import` block 数组。
 
@@ -332,7 +346,7 @@
   3. Workspaces 缺点：plan 输出混乱、权限隔离差、变量管理复杂
   4. 推荐：**生产用目录隔离**，workspaces 仅用于短生命周期的临时环境
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Workspaces 适合什么场景？**: 短生命周期的临时环境（如 PR 预览环境）、演示环境。不适合生产。
   - **Workspaces 如何切换？**: `terraform workspace select prod` 切换后，后续命令都在该 workspace 下执行。State 文件路径会加上 workspace 名前缀。
 
@@ -348,7 +362,7 @@
   4. for_each 用 key 作为标识，删除元素不影响其他
   5. **最佳实践**：默认用 `for_each`，仅当需条件创建时用 `count`
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **for_each 支持哪些类型？**: Map 或 Set。List 不行（因为 list 索引会变化，导致同样的 count 陷阱）。需要把 list 转成 set（`toset(var.servers)`）。
   - **count 和 for_each 能混用吗？**: 可以，但不推荐。混用会让依赖关系混乱，建议一个资源只用一种方式。
 
@@ -365,7 +379,7 @@
   5. Terraform Cloud（官方托管，自带锁、Policy、审计）
   6. **Backend 必须支持锁定**，否则不能用
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **自建 lock（如 COS）可靠吗？**: 没有 S3+DynamoDB 那么成熟，需要自己保证强一致性。教程里用的是腾讯云 CAM 权限 + 对象锁机制，可以工作但不推荐用于大规模生产。
   - **如何降低 Remote Backend 成本？**: S3 用 lifecycle 策略清理旧版本；COS 用归档存储；Terraform Cloud 免费额度对 5 人以下团队够用。
 
@@ -380,7 +394,7 @@
   3. ⚠️ 但不能阻止**手动控制台删除**
   4. 配合 IAM 权限 + CloudTrail 才能真正保护
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **prevent_destroy 如何临时禁用？**: 没有临时禁用，要么移除 lifecycle 块后 apply，要么用 `terraform state rm` 移出 state（极端情况）。生产用 CI 检查防止误移除。
   - **prevent_destroy 配合什么用？**: 配合 IAM 权限（即使手动控制台删除也需要 MFA）和 CloudTrail 审计。
 
@@ -395,7 +409,7 @@
   3. 用途：机器坏了强制重建
   4. taint 已**部分弃用**，推荐 `-replace`
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **taint 之后怎么解除？**: `terraform untaint <resource>` 解除。但 1.6+ 推荐用 `-replace`，更直观。
   - **taint 和 destroy 区别？**: taint 标记后下次 apply 会 destroy + create（中间有短暂不可用）；destroy 直接删除资源，state 中也删除。
 
@@ -410,7 +424,7 @@
   3. 适用：模块重构后资源地址变化
   4. 替代了之前的 `terraform state mv`
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **moved block 适用版本？**: 1.1+ 支持。比 `terraform state mv` 更优雅（可以写进 PR review）。
   - **moved block 跨模块怎么写？**: `moved { from = module.old.aws_instance.foo to = module.new.aws_instance.foo }`，模块路径会变化。
 
@@ -432,7 +446,7 @@
      }
      ```
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **dynamic block 有什么限制？**: 生成的资源类型必须一致；for_each 必须遍历 Map/Set；content 块内的语法和静态块相同。
   - **什么时候用 dynamic 而不是 for_each？**: 当同一资源的嵌套块需要动态生成时（如 SG 规则），用 `dynamic`。当需要创建多个独立资源时，用 `for_each`。
 
@@ -447,7 +461,7 @@
   3. 日志级别：`TRACE` > `DEBUG` > `INFO` > `WARN` > `ERROR`
   4. `terraform console`：交互式测试表达式
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **TF_LOG=TRACE 有多详细？**: 极其详细，包含 HTTP 请求、Provider 调用、SQL（如果有）。可能产生 GB 级日志，只在排错时临时开。
   - **terraform console 怎么用？**: 进入交互式 REPL，可以测试表达式：`> var.instance_type`，输出 `"S5.LARGE8"`。
 
@@ -463,7 +477,7 @@
   4. 用 `terraform init -upgrade` 升级 lock 文件
   5. **测试流程**：dev → staging → prod 逐步升级
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Terraform 大版本升级怎么测试？**: 在 dev 环境用 `terraform init -upgrade` 升级，跑完整 plan 看是否有 breaking change（标 `~` 或 `-/+`），有问题先改代码再升生产。
   - **Provider major 版本如何测试？**: 先在单独分支升级，跑 plan 看变更；用 `terratest` 跑集成测试；灰度环境验证。
 
@@ -477,7 +491,7 @@
   2. `for_each`：**资源创建**（生成多个资源）
   3. 示例：`[for s in var.servers : s.name]` 是表达式，`for_each = var.servers` 是资源块
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **for 表达式能用在 output 里吗？**: 可以。`output "names" { value = [for s in var.servers : s.name] }`。
   - **for 表达式的 in 后能用什么？**: List、Map、Set 都可以。Map 返回的是 value，List/Set 返回的是元素。
 
@@ -491,7 +505,7 @@
   2. `dynamic` 在**单个资源内**动态生成嵌套块
   3. 例如：`for_each` 创建多个 `aws_security_group`，`dynamic` 在一个 SG 内动态生成多个 `ingress` 规则
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **dynamic block 在 output 里能引用吗？**: 不能直接引用 `dynamic` 块本身，但可以引用 `dynamic` 块创建的资源的属性。
   - **dynamic 和 count 在同一资源里能混用吗？**: 可以但非常复杂，不推荐。
 
@@ -507,7 +521,7 @@
   4. **端到端测试**：在临时 AWS 账号中 apply → 验证 → destroy
   5. 接入 CI：每个 PR 自动跑测试
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **terraform test 怎么写？**: 在 `.tftest.hcl` 文件里写测试用例，类似 Go 测试。`run "test" { command = plan }` 测试 plan 是否符合预期。
   - **CI 中测试 Terraform 的最佳实践？**: 每 PR：fmt → validate → tflint → tfsec → checkov → plan → test（如果有）。
 
@@ -525,7 +539,7 @@
   4. 使用 OIDC（避免长寿命 AK/SK）
   5. 集成 Slack/Teams 通知失败
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Plan artifact 怎么用？**: `terraform plan -out=tfplan` 保存 plan 文件到磁盘，CI 保存到 S3 artifact，审批后 apply 同一 plan（避免 drift 导致 apply 不同的变更）。
   - **如何防止 plan 过期？**: Plan 应该在短时间内 apply（几小时内），超过 24 小时建议重新 plan。CI/CD 中可加超时检查。
 
@@ -540,7 +554,7 @@
   3. 工具：ArgoCD、Flux（用于 K8s）；Terraform Cloud 直接支持
   4. 优势：审计、可回滚、可追溯
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Terraform Cloud 和 ArgoCD 区别？**: 前者管 Terraform（基础设施），后者管 K8s（应用）。可以配合使用：ArgoCD 触发 Terraform Cloud 的 plan/apply。
   - **GitOps 的 rollback 怎么做？**: Git revert 到上一个 commit → CI 自动 apply → 基础设施回滚。但 state 文件可能漂移，需要 `terraform plan -refresh-only` 检查。
 
@@ -556,7 +570,7 @@
   4. SLO ≤ SLA，建议预留 buffer
   5. Error Budget：SLO 100% - 99.9% = 0.1% 不可用时间
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Error Budget 耗尽了怎么办？**: 暂停新功能上线，所有工程资源都投入稳定性修复，直到 budget 恢复（下一个计费周期）。
   - **SLI 如何选择？**: 用户能感知的指标：延迟（p99）、错误率（5xx 比例）、可用性（成功请求/总请求）。
 
@@ -571,7 +585,7 @@
   3. **金丝雀**：少量流量验证新版本（最安全，但复杂）
   4. Terraform + Auto Scaling Group 适合滚动部署
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **金丝雀部署如何自动化？**: 用 Argo Rollouts、Flagger 或 Spinnaker。先把 5% 流量切到新版本，观察 metrics，逐步增加比例。
   - **Terraform 支持蓝绿部署吗？**: 支持。用 `aws_route53_record` 切换 DNS 权重，或用 ALB 的两个 Target Group 切换。
 
@@ -586,7 +600,7 @@
   3. Terraform 实现：`create_before_destroy` + AMI
   4. 对比：可变基础设施（SSH 进去改配置）= 反模式
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **不可变基础设施和容器的关系？**: 容器本身就是不可变的（image 一旦构建就不变）。EC2 也可以做到：用 Packer 构建 AMI，每次更新替换整个实例。
   - **Packer 是什么？**: HashiCorp 的镜像构建工具，和 Terraform 配合：Packer 构建 AMI → Terraform 用 AMI 创建 EC2。
 
@@ -602,7 +616,7 @@
   3. Terraform / Ansible 是减少 toil 的核心工具
   4. 衡量：每次操作的人工小时数
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **如何衡量 toil？**: 记录每个运维任务的人工小时数，统计月度趋势。SRE 团队目标：toil ≤ 50% 工作时间。
   - **Toil 和技术债有什么区别？**: Toil 是重复性手动工作（如重启服务），技术债是代码/架构的妥协。Toil 是症状，技术债是原因之一。
 
@@ -618,7 +632,7 @@
   4. Ingress：7 层 HTTP 路由
   5. ConfigMap / Secret：配置管理
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Pod 和 Container 区别？**: Pod 是 K8s 调度单位，可以包含 1+ 紧密相关的容器（如 app + sidecar）。Container 是镜像实例。
   - **Deployment 和 StatefulSet 区别？**: Deployment 适合无状态服务，StatefulSet 适合有状态服务（如数据库），有稳定的网络标识和持久存储。
 
@@ -634,7 +648,7 @@
   4. **`.dockerignore`** 排除无关文件
   5. **非 root 用户**运行（`USER 1000`）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Alpine 镜像有什么坑？**: Alpine 用 musl libc 而不是 glibc，某些二进制（如 Python wheels）可能不兼容。需要测试。
   - **为什么用多阶段构建？**: 构建阶段包含完整工具链（如 gcc、npm），运行时阶段只复制产物（如编译好的二进制）。最终镜像可以小 10 倍以上。
 
@@ -650,7 +664,7 @@
   4. **资源数量趋势**：按 type/region 统计
   5. 告警：drift > 0、apply 失败、锁超时
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Drift 率怎么计算？**: `(drift 资源数 / 总资源数) * 100%`。建议 < 1%，> 5% 需要告警。
   - **Terraform apply 失败怎么监控？**: CI/CD pipeline 上报 metrics 到 Prometheus，统计失败率。失败 > 5% 告警。
 
@@ -666,7 +680,7 @@
   4. **端到端测试**：真实环境测试
   5. **Policy as Code**：Sentinel / OPA 持续检查
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Sentinel 和 OPA 区别？**: Sentinel 是 HashiCorp 的 Policy 框架（Terraform Cloud 内置），OPA 是 CNCF 的通用 Policy 框架（更灵活，但集成复杂）。
   - **如何写自定义 Policy？**: Sentinel 用 `.sentinel` 文件，OPA 用 Rego 语言。两者都支持 deny/allow 规则。
 
@@ -685,7 +699,7 @@
   5. Redis 缓存层
   6. CDN + COS 静态资源
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **多 AZ 部署就够高可用了吗？**: 单 region 多 AZ 够 99.99% 可用性。要 99.999% 需要多 region + 异地容灾。
   - **Auto Scaling 缩容到 0 会怎样？**: 会完全停止所有实例，导致服务不可用。生产环境建议设置 `min_size >= 2`。
 
@@ -701,7 +715,7 @@
   4. **RTO / RPO** 指标决定方案选型
   5. 数据库用**异地复制**（如 MySQL binlog replication、Redis CRR）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Pilot Light 和 Warm Standby 选哪个？**: 看 RTO 要求：Pilot Light 适合 RTO > 1 小时（成本最低），Warm Standby 适合 RTO < 30 分钟。Active-Active 适合 RTO < 1 分钟（成本最高）。
   - **数据库跨区域复制延迟多少？**: MySQL 异步复制：秒级；半同步：百毫秒级；同步：受距离影响（跨 region 通常 > 50ms）。
 
@@ -717,7 +731,7 @@
   4. 定期用 IAM Access Analyzer 审查
   5. 生产环境用**专用子账号 + 自定义策略**
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **OIDC 和 AK/SK 区别？**: OIDC 是短期凭证（CI 跑完自动失效），AK/SK 是长期凭证（泄露风险高）。CI/CD 中**必须用 OIDC**。
   - **如何审计 IAM 权限？**: 用 AWS IAM Access Analyzer 或腾讯云 CAM 审计。定期 review 用户的实际权限和需要的权限。
 
@@ -733,7 +747,7 @@
   4. 使用 Spot/Preemptible 实例
   5. 定期成本审计（Infracost, Terraform Cloud Cost Estimation）
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Infracost 是什么？**: 第三方工具，在 `terraform plan` 时估算本次变更的成本。支持 AWS/Azure/GCP，免费版够用。
   - **如何自动销毁非生产环境？**: GitHub Actions 定时任务（cron）每天晚上 destroy 非生产环境；或用 Terraform Cloud 的 Drift Detection + 自动销毁策略。
 
@@ -751,7 +765,7 @@
   3. 真实案例：Security Group 规则引用 SG 本身
   4. `terraform graph` 可视化依赖关系
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **循环依赖的常见原因？**: 1) Security Group 规则引用 SG 本身；2) IAM Role 信任关系循环；3) 网络 ACL 和 Route Table 互相依赖。
   - **terraform graph 输出什么格式？**: DOT 格式（Graphviz），需要 `dot` 命令转 PNG：`terraform graph | dot -Tpng > graph.png`。
 
@@ -767,7 +781,7 @@
   - **CloudFormation**：AWS only，与 Terraform 类似
   - 选择：多云→Terraform；AWS only→CFN；代码友好→Pulumi
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **Terraform Cloud 和 OpenTofu 区别？**: Terraform Cloud 是 HashiCorp 商业产品（额外功能），OpenTofu 是社区 fork 的开源版本。核心 IaC 引擎基本兼容。
   - **Pulumi 的劣势？**: 1) 学习曲线更陡（需要写代码）；2) 社区比 Terraform 小；3) 某些第三方模块不可用。
 
@@ -783,7 +797,7 @@
   4. 模块化 + 复用变量
   5. 避免冗余的 `data source` 查询
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **拆分 state 后跨模块引用怎么办？**: 用 `terraform_remote_state` data source 从其他 state 文件读取 outputs。例：`data "terraform_remote_state" "network" { backend = "s3" config = { ... } }`。
   - **parallelism 调多大好？**: 默认是 10。增大（如 20）能加速，但可能触发云 API 限流。建议先用默认，跑几次后观察日志再调整。
 
@@ -798,7 +812,7 @@
   3. 生产级用 **ArgoCD / Flux** 做 GitOps
   4. Terraform 管**基础设施**（VPC、节点），K8s 管**应用层**
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **K8s Provider 怎么认证？**: 用 K8s 集群的 `kubeconfig` 文件，或 Service Account token。生产用 Service Account + RBAC。
   - **Terraform 和 Helm 哪个先学？**: 先 Helm（理解 K8s 应用层），再 Terraform（管理 K8s 基础设施）。
 
@@ -813,7 +827,7 @@
   3. 难点：API Gateway + Function + 事件源需要复杂编排
   4. 工具：Serverless Framework 配合 Terraform
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **API Gateway 和 Function 怎么连？**: Terraform 中创建 `aws_apigatewayv2_api` + `aws_lambda_permission` 授权 API Gateway 调用 Lambda。
   - **Serverless 冷启动怎么解决？**: 预留并发（Provisioned Concurrency）、预热函数、或用 `SnapStart`（AWS）。
 
@@ -829,7 +843,7 @@
   4. 数据同步：跨云数据库复制
   5. 应用层：避免云厂商锁定
 
-- **追问与参考答案**:
+- **追问与参考答案（参考，未验证）**:
   - **跨云专线带宽多少钱？**: AWS Direct Connect 1Gbps 大约 $0.03/小时 + 端口费。腾讯云专线类似。需要评估带宽需求。
   - **如何避免云厂商锁定？**: 1) 用 Terraform（多云 IaC 工具）；2) 抽象基础设施层（K8s）；3) 用云中立服务（如数据库用 PostgreSQL 而不是 RDS）。
 
