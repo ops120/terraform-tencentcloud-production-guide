@@ -45,7 +45,7 @@
 
 ### Q01: 什么是 Terraform？它与 Ansible 有什么区别？
 
-- **难度**: 初级 ⭐⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **出处**: Reddit, Glassdoor, YouTube, DataCamp
 - **答案要点**:
   1. Terraform 是 HashiCorp 的**声明式（declarative）IaC 工具**，专注基础设施**编排（orchestration）**
@@ -59,7 +59,7 @@
 
 ### Q02: Terraform state 文件是什么？为什么它如此重要？
 
-- **难度**: 初级 ⭐⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **出处**: Reddit r/Terraform, HashiCorp 认证题, YouTube, Medium
 - **答案要点**:
   1. `terraform.tfstate` 记录云资源 ID 和属性，建立代码与实际资源的映射
@@ -73,7 +73,7 @@
 
 ### Q03: Terraform provider 是什么？如何工作？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **出处**: Reddit, HashiCorp 认证, DataCamp
 - **答案要点**:
   1. Provider 是**插件**，通过 Terraform Plugin Protocol 与云 API 通信
@@ -86,7 +86,7 @@
 
 ### Q04: resource 和 data source 有什么区别？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. `resource`：**创建 / 管理**资源（CRUD）
   2. `data source`：**只读查询**现有资源（如查询 AMI ID、可用的 AZ）
@@ -97,7 +97,7 @@
 
 ### Q05: Module 是什么？和直接写 resource 有什么区别？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. Module 是**可复用的资源组**，封装多个 resource
   2. 输入（variables）+ 输出（outputs）+ 实现（main.tf）
@@ -109,7 +109,7 @@
 
 ### Q06: Backend 是什么？和 local 有什么区别？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. Backend 决定 **state 文件存储位置**和执行方式
   2. Local（默认）：state 存在本地磁盘；Remote（S3/COS/Terraform Cloud）：state 存在云端 + 自动锁
@@ -121,7 +121,7 @@
 
 ### Q07: 解释 Terraform 的 lifecycle（生命周期）块
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. `create_before_destroy`：先创建新资源再删旧的（避免 downtime）
   2. `prevent_destroy`：防止误删关键资源（如数据库）
@@ -133,7 +133,7 @@
 
 ### Q08: Terraform 变量有哪些类型？sensitive 是什么？
 
-- **难度**: 初级 ⭐⭐⭐
+- **难度**: 初级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 类型：`string`, `number`, `bool`, `list`, `map`, `set`, `object`, `tuple`
   2. `sensitive = true`：标记为敏感，**plan/apply 输出会隐藏**，但**State 中仍明文存储**
@@ -144,7 +144,7 @@
 
 ### Q09: 解释 Terraform 常用命令
 
-- **难度**: 初级 ⭐⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. `init`：下载 provider + 初始化 backend
   2. `plan`：预览变更（不实际执行）
@@ -156,7 +156,7 @@
 
 ### Q10: Terraform 如何处理资源依赖？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. **隐式依赖**：通过变量引用（如 `vpc_id = aws_vpc.main.id`）
   2. **显式依赖**：`depends_on = [aws_iam_role.example]`
@@ -167,7 +167,7 @@
 
 ### Q11: 什么是 Terraform Registry？如何使用？
 
-- **难度**: 初级 ⭐⭐⭐
+- **难度**: 初级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. Registry 是**公共模块库**（registry.terraform.io）
   2. 引用方式：`module "vpc" { source = "terraform-aws-modules/vpc/aws" version = "5.0.0" }`
@@ -178,7 +178,7 @@
 
 ### Q12: 什么是 HCL？和 JSON/YAML 比有什么优势？
 
-- **难度**: 初级 ⭐⭐
+- **难度**: 初级 | **频率**: 低频 ⭐⭐
 - **答案要点**:
   1. HCL = HashiCorp Configuration Language，**专为 IaC 设计**
   2. JSON 太严格（无注释、无变量），YAML 缩进易错、复杂嵌套难读
@@ -190,7 +190,7 @@
 
 ### Q13: provisioner 是什么？什么时候用？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. Provisioner 在资源创建后执行**自定义逻辑**（脚本、文件传输）
   2. 类型：`local-exec`, `remote-exec`, `file`
@@ -202,7 +202,7 @@
 
 ### Q14: 如何管理敏感信息（数据库密码、API Key）？
 
-- **难度**: 中级 ⭐⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. ❌ 错误：硬编码在 `.tf` 文件或 `terraform.tfvars` 提交到 Git
   2. ✅ 推荐：**环境变量**（`TF_VAR_db_password`）
@@ -214,7 +214,7 @@
 
 ### Q15: Terraform 的 "Plan" 输出符号 `+/-/~` 什么意思？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. `+ create`：新建资源
   2. `- destroy`：删除资源
@@ -229,7 +229,7 @@
 
 ### Q16: 什么是 State Locking？为什么需要？
 
-- **难度**: 中级 ⭐⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. 防止**多人同时 apply** 导致的 state 冲突
   2. S3 用 DynamoDB 锁；Terraform Cloud 自动锁；Azure 用 blob lease
@@ -241,7 +241,7 @@
 
 ### Q17: Drift 是什么？如何检测和修复？
 
-- **难度**: 中级 ⭐⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. Drift = State 记录与**实际云资源**不一致（有人改了控制台）
   2. 检测：`terraform plan -refresh-only` 或普通 `terraform plan`
@@ -254,7 +254,7 @@
 
 ### Q18: `terraform import` 和 `import block` 的区别？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. `terraform import` (CLI, 1.5 之前)：导入到 state 但**不写代码**
   2. `import { to = ... id = ... }` block (1.5+)：**同时写 state 和生成代码**（`-generate-config-out`）
@@ -265,7 +265,7 @@
 
 ### Q19: Workspace 和 directory-per-environment 哪个好？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. **Workspaces**：共享代码，仅 state 隔离。适合差异极小的小团队
   2. **Directory-per-environment**：完全独立目录 + state。推荐用于**生产**
@@ -288,7 +288,7 @@
 
 ### Q21: 远程 State 后端有哪些选择？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. AWS S3 + DynamoDB（最流行）
   2. **腾讯云 COS + 自建锁**（教程中提到）
@@ -301,7 +301,7 @@
 
 ### Q22: `prevent_destroy` 有什么用？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 防止 `terraform destroy` 删除关键资源（如生产数据库）
   2. 写在 lifecycle 块：`lifecycle { prevent_destroy = true }`
@@ -312,7 +312,7 @@
 
 ### Q23: `taint` 和 `-replace` 有什么区别？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. `terraform taint`：标记资源为"已污染"，下次 apply 会**重建**
   2. `terraform apply -replace="..."` (1.6+)：plan 时直接替换，无需 taint
@@ -323,7 +323,7 @@
 
 ### Q24: `moved` block 是什么？
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 用于**资源重命名**而不销毁重建
   2. 写法：`moved { from = aws_instance.old to = aws_instance.new }`
@@ -334,7 +334,7 @@
 
 ### Q25: `dynamic` block 是什么？
 
-- **难度**: 高级 ⭐⭐
+- **难度**: 高级 | **频率**: 低频 ⭐⭐
 - **答案要点**:
   1. 用于**动态生成嵌套块**（如动态 security_group_rules）
   2. 类似编程语言的循环
@@ -352,7 +352,7 @@
 
 ### Q26: 如何调试 Terraform 代码？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. `TF_LOG=DEBUG terraform apply` 查看详细日志
   2. `TF_LOG_PATH=./log.txt` 输出到文件
@@ -363,7 +363,7 @@
 
 ### Q27: 如何升级 Terraform 版本？升级有风险吗？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 升级 Terraform 二进制本身（直接下载新版）
   2. 升级 Provider 版本（修改 `required_providers`）
@@ -375,7 +375,7 @@
 
 ### Q28: 解释 `for` 表达式和 `for_each` 的区别
 
-- **难度**: 中级 ⭐⭐
+- **难度**: 中级 | **频率**: 低频 ⭐⭐
 - **答案要点**:
   1. `for` 表达式：**转换数据**（类似 list comprehension）
   2. `for_each`：**资源创建**（生成多个资源）
@@ -385,7 +385,7 @@
 
 ### Q29: `dynamic` 和 `for_each` 的区别？
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. `for_each` 创建**多个资源实例**
   2. `dynamic` 在**单个资源内**动态生成嵌套块
@@ -395,7 +395,7 @@
 
 ### Q30: 如何测试 Terraform 代码？
 
-- **难度**: 高级 ⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. **静态检查**：`terraform validate`, `tflint`, `tfsec`, `checkov`
   2. **单元测试**：`terraform test`（1.6+ 原生）
@@ -409,7 +409,7 @@
 
 ### Q31: Terraform 如何集成到 CI/CD？
 
-- **难度**: 高级 ⭐⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. Pipeline：`init` → `fmt -check` → `validate` → `tflint/tfsec` → `plan` → 审批 → `apply`
   2. **生产环境 apply 必须人工审批**（2 人 approve）
@@ -421,7 +421,7 @@
 
 ### Q32: 解释 GitOps 和 Terraform 的结合
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. GitOps = Git 作为唯一真相源
   2. PR 修改 Terraform 代码 → CI 跑 plan → merge → 自动 apply
@@ -432,7 +432,7 @@
 
 ### Q33: SLI / SLO / SLA 是什么？
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. SLI（指标）：如延迟、错误率、吞吐量
   2. SLO（目标）：如 99.9% 可用率
@@ -444,7 +444,7 @@
 
 ### Q34: 蓝绿 / 滚动 / 金丝雀部署区别？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. **蓝绿**：两套环境，切流量（快速回滚，但资源 2 倍）
   2. **滚动**：逐步替换实例（K8s 默认，节省资源但回滚慢）
@@ -455,7 +455,7 @@
 
 ### Q35: 什么是不可变基础设施（Immutable Infrastructure）？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 服务器部署后**不再修改**，更新只通过替换实例
   2. 优势：可预测、易回滚、避免配置漂移
@@ -466,7 +466,7 @@
 
 ### Q36: 解释 Toil（运维苦差事）
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **出处**: Google SRE Book
 - **答案要点**:
   1. Toil = 手动、重复、可自动化、无长期价值的运维工作
@@ -478,7 +478,7 @@
 
 ### Q37: K8s 核心组件（Pod / Deployment / Service）？
 
-- **难度**: 初级 ⭐⭐⭐⭐
+- **难度**: 初级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. Pod：最小调度单位，含 1+ 容器
   2. Deployment：管理 Pod 副本和滚动更新
@@ -490,7 +490,7 @@
 
 ### Q38: Dockerfile 最佳实践？
 
-- **难度**: 初级 ⭐⭐⭐
+- **难度**: 初级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 使用**多阶段构建**减小镜像
   2. 选择**alpine 基础镜像**
@@ -502,7 +502,7 @@
 
 ### Q39: 监控 IaC 的关键指标
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. **Drift 率**：state 与实际不一致的频率
   2. **Apply 失败率**：CI/CD pipeline 成功率
@@ -514,7 +514,7 @@
 
 ### Q40: IaC 测试金字塔
 
-- **难度**: 高级 ⭐⭐
+- **难度**: 高级 | **频率**: 低频 ⭐⭐
 - **答案要点**:
   1. **静态检查**（最便宜）：`tflint`, `tfsec`, `checkov`
   2. **单元测试**：模块单独测试
@@ -528,7 +528,7 @@
 
 ### Q41: 设计高可用 Web 架构
 
-- **难度**: 高级 ⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 多 AZ 部署（至少 2 个，可用区故障隔离）
   2. CLB 负载均衡 + 健康检查
@@ -541,7 +541,7 @@
 
 ### Q42: 设计跨区域灾备方案
 
-- **难度**: 资深 ⭐⭐⭐⭐⭐
+- **难度**: 资深 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. **Pilot Light**：平时只运行核心组件，故障时快速启动
   2. **Warm Standby**：次区域跑小规模环境
@@ -553,7 +553,7 @@
 
 ### Q43: 解释 IAM 最小权限原则
 
-- **难度**: 中级 ⭐⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. 用户/服务只给**必需的权限**
   2. IAM 策略：Action + Resource 限定
@@ -565,7 +565,7 @@
 
 ### Q44: 设计成本监控方案
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. Terraform 标签（Project, Environment, Owner）便于成本分摊
   2. 预算告警（Budget Alerts）
@@ -577,7 +577,7 @@
 
 ### Q45: Terraform 资源出现循环依赖（circular dependency）怎么办？
 
-- **难度**: 高级 ⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 例：A 依赖 B，B 又依赖 A
   2. 解决方案：
@@ -591,7 +591,7 @@
 
 ### Q46: 解释 Terraform vs Pulumi vs Ansible vs CloudFormation
 
-- **难度**: 高级 ⭐⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   - **Terraform**：声明式 + 多云 + state 文件，最流行
   - **Pulumi**：声明式但用真实编程语言（TypeScript/Python/Go）
@@ -603,7 +603,7 @@
 
 ### Q47: 大规模部署（100+ 资源）性能优化
 
-- **难度**: 高级 ⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. **拆分 state**：按服务或团队拆多个 state
   2. 用 `-target` 局部 apply
@@ -615,7 +615,7 @@
 
 ### Q48: 如何用 Terraform 管理 K8s 资源？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 用 Kubernetes Provider
   2. 推荐 **Helm + Terraform** 或 **Helmfile**
@@ -626,7 +626,7 @@
 
 ### Q49: Serverless 架构如何用 Terraform 管？
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 主流：腾讯云 SCF、AWS Lambda
   2. Terraform 用对应的云 provider
@@ -637,7 +637,7 @@
 
 ### Q50: 混合云架构设计
 
-- **难度**: 资深 ⭐⭐⭐⭐
+- **难度**: 资深 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 跨云专线（如 AWS Direct Connect、腾讯云专线）
   2. Terraform **多 provider** 配置
@@ -651,7 +651,7 @@
 
 ### Q51: `terraform apply` 一直卡住，怎么办？
 
-- **难度**: 初级 ⭐⭐⭐
+- **难度**: 初级 | **频率**: 中频 ⭐⭐⭐
 - **出处**: Reddit r/Terraform 高频问题
 - **答案要点**:
   1. 检查是否**死锁**：state 锁未释放
@@ -663,7 +663,7 @@
 
 ### Q52: State 文件损坏了能恢复吗？
 
-- **难度**: 高级 ⭐⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. 有版本化 S3 → 回滚到上一个版本
   2. 无备份 → **灾难**：
@@ -675,7 +675,7 @@
 
 ### Q53: Drift 检测后发现资源被删除了，怎么办？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 不要慌，先 `terraform plan -refresh-only` 确认
   2. `terraform apply` 重建资源
@@ -686,7 +686,7 @@
 
 ### Q54: 多人同时 apply 导致冲突
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 必须用远程 backend + 锁（S3+DynamoDB、COS+自建锁）
   2. 锁冲突时，**等待**或**force-unlock**（谨慎）
@@ -697,7 +697,7 @@
 
 ### Q55: `terraform destroy` 误删了重要资源，如何恢复？
 
-- **难度**: 高级 ⭐⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 极高频 ⭐⭐⭐⭐⭐
 - **答案要点**:
   1. 如果开启了 Remote Backend 版本化 → 回滚 state
   2. 用 `terraform import` 重新导入资源
@@ -708,7 +708,7 @@
 
 ### Q56: `terraform plan` 报错 "Error acquiring the state lock" 怎么办？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 检查是否有其他进程正在 apply
   2. 等几分钟再试
@@ -719,7 +719,7 @@
 
 ### Q57: module 引用的版本冲突怎么办？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 用 `terraform init -upgrade` 升级所有依赖
   2. 在 `required_versions` 锁定 Terraform 版本
@@ -730,7 +730,7 @@
 
 ### Q58: `terraform apply` 创建了资源但 state 没更新（崩溃了）
 
-- **难度**: 高级 ⭐⭐⭐⭐
+- **难度**: 高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   1. 下次 plan 会检测到实际资源存在，state 会同步更新
   2. 如果资源没创建成功 → 用 `terraform apply` 重试
@@ -740,7 +740,7 @@
 
 ### Q59: Terraform vs Ansible：什么时候用哪个？
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   - **Terraform**：基础设施编排（VM、网络、数据库）→ 声明式、跨云
   - **Ansible**：服务器配置、软件部署、运维自动化 → 命令式、无 agent
@@ -751,7 +751,7 @@
 
 ### Q60: Terraform vs CloudFormation
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   - **Terraform**：多云、HashiCorp 生态、社区大
   - **CloudFormation**：AWS 原生、AWS 资源覆盖最全、支持私有资源
@@ -761,7 +761,7 @@
 
 ### Q61: Terraform vs Pulumi
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   - **Terraform**：HCL DSL、学习曲线低、成熟生态
   - **Pulumi**：用 TypeScript/Python/Go 写 IaC、IDE 支持好、测试友好
@@ -771,7 +771,7 @@
 
 ### Q62: count vs for_each 的真实生产陷阱
 
-- **难度**: 中级 ⭐⭐⭐⭐
+- **难度**: 中级 | **频率**: 高频 ⭐⭐⭐⭐
 - **答案要点**:
   - **count 陷阱**：`var.servers = [A, B, C]` → 删除 B 变成 [A, C]，原 C 索引从 2 变成 1，**CVM 被销毁重建**
   - **for_each 优势**：用 key 标识（`name`），删除 B 后 C 保持不变
@@ -781,7 +781,7 @@
 
 ### Q63: Terraform vs Helm（K8s 场景）
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   - Terraform 管**节点、LoadBalancer、存储**等基础设施
   - Helm 管**应用层**（Deployment、Service、ConfigMap）
@@ -791,7 +791,7 @@
 
 ### Q64: Terraform vs OpenTofu
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **出处**: HashiCorp/Mozilla 分叉事件后
 - **答案要点**:
   - **OpenTofu**：2023 年因 HashiCorp 改协议，社区 fork 出的开源版本
@@ -803,7 +803,7 @@
 
 ### Q65: Terraform state 存在哪里最安全？
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. **本地磁盘**：❌ 仅个人开发用，不安全
   2. **S3/COS + 加密 + 版本化**：✅ 推荐用于生产
@@ -816,7 +816,7 @@
 ### Q66: "Tell me about a Terraform outage you handled"
 
 - **类型**: 行为面试（STAR 框架）
-- **难度**: 中级~高级 ⭐⭐⭐⭐
+- **难度**: 中级~高级 | **频率**: 高频 ⭐⭐⭐⭐
 - **建议答案结构**:
   - **S**ituation：某次生产事故
   - **T**ask：你的职责
@@ -888,7 +888,7 @@
 
 ### Q73: "How do you stay current with new Terraform features?"
 
-- **难度**: 中级 ⭐⭐
+- **难度**: 中级 | **频率**: 低频 ⭐⭐
 - **建议答案**:
   - 订阅 HashiCorp 官方博客和 release notes
   - GitHub 关注 terraform-providers 和 terraform
@@ -910,7 +910,7 @@
 
 ### Q75: "Describe your experience with Terraform Cloud / Enterprise"
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **建议答案**:
   - 如果用过：说具体功能（Remote Run、Policy as Code、Audit Logs）
   - 如果没用：说计划 + 对比自建方案
@@ -919,7 +919,7 @@
 
 ### Q76: "How do you handle Terraform when the cloud provider has no resource support?"
 
-- **难度**: 高级 ⭐⭐⭐
+- **难度**: 高级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 用 `terraform_data` + provisioner 自定义资源
   2. 写自定义 Provider（Go 语言）
@@ -930,7 +930,7 @@
 
 ### Q77: "What's your team's approach to Terraform module versioning?"
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. 用 Git tag（v1.0.0, v1.1.0）+ SemVer
   2. 通过 Terraform Registry 或私有 registry 分发
@@ -941,7 +941,7 @@
 
 ### Q78: "How do you test infrastructure changes before applying to production?"
 
-- **难度**: 中级 ⭐⭐⭐
+- **难度**: 中级 | **频率**: 中频 ⭐⭐⭐
 - **答案要点**:
   1. **分层环境**：dev → staging → prod
   2. **PR 自动化**：每个 PR 跑 plan + tflint + tfsec
